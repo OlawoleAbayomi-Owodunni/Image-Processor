@@ -29,7 +29,9 @@ private slots:
 
     void onPrcGrayButtonClicked();
 
-    void on_saveButton_clicked();
+    void onSaveButtonClicked();
+
+    void on_prcBrghtButton_clicked();
 
 private:
     Ui::MainWindow *ui;

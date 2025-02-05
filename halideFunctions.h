@@ -59,3 +59,25 @@ void makeGrayscale(const QString &t_inputPath, const QString &t_outputPath)
             //output type so that when save is called, it can be easy
     }
 }
+
+void brighten(const QString &t_inputPath, const QString &t_outputPath)
+{
+    Halide::Buffer<uint8_t> input = Halide::Tools::load_image(t_inputPath.toStdString());
+
+    Halide::Func brighter;
+    Halide::Var x, y, c;
+
+    Halide::Expr value = input(x, y, c);
+    value = Halide::cast<float>(value);
+
+    value *= 1.5f;
+
+    value = Halide::min(value, 255.0f);
+
+    value = Halide::cast<uint8_t>(value);
+
+    brighter(x, y, c) = value;
+
+    Halide::Buffer<uint8_t> output = brighter.realize({input.width(), input.height(), input.channels()});
+    Halide::Tools::save_image(output, t_outputPath.toStdString());
+}
