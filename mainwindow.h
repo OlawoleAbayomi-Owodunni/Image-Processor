@@ -29,6 +29,8 @@ private slots:
 
     void onPrcGrayButtonClicked();
 
+    void on_saveButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;

@@ -15,12 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     ui->displayWindow->setScene(scene);
-
-    //Conncecting signals and slots:
-    connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::onUploadButtonClicked); //high chance this throws up errors
-        //no error but issue with calling twice
-
-    connect(ui->prcGrayButton, &QPushButton::clicked, this, &MainWindow::onPrcGrayButtonClicked);
 }
 
 MainWindow::~MainWindow()
@@ -46,12 +40,12 @@ void MainWindow::onPrcGrayButtonClicked()
         return;
     }
 
-    QString save_path = "tempImg.png";
+    QString save_path = "./tempImg.png";
 
     makeGrayscale(CURRENT_IMG_PATH, save_path);
 
-    //CURRENT_IMG_PATH = save_path;
-    //UpdateImage(CURRENT_IMG_PATH);
+    CURRENT_IMG_PATH = save_path;
+    UpdateImage(CURRENT_IMG_PATH);
 }
 
 void MainWindow::logUpdate(QString log_message)
@@ -93,3 +87,28 @@ void MainWindow::OpenFile()
 
     CURRENT_IMG_PATH = file_path;
 }
+
+void MainWindow::on_saveButton_clicked()
+{
+    QString log_message = "Save button pressed";
+    logUpdate(log_message);
+
+    if(CURRENT_IMG_PATH == ""){
+        QMessageBox::critical(this, "INVALID OPERATION!", "No image has been selected: Please Upload an image first :)");
+        return;
+    }
+
+    QString file_path = QFileDialog::getSaveFileName(this, "Save Image", "", tr("Image Files (*.png *.jpg *.jpeg *.bmp)"));
+
+    if(file_path.isEmpty()) return;
+
+    QImage image;
+    image.load(CURRENT_IMG_PATH);
+
+    if(image.save(file_path)){
+        QMessageBox::information(this, "Save Successful", tr("Image saved successfully to:\n%1").arg(file_path));
+    } else {
+        QMessageBox::warning(this, tr("Save Image"), tr("Failed to save the image."));
+    }
+}
+
