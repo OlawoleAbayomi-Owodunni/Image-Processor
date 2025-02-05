@@ -41,11 +41,17 @@ void MainWindow::onPrcGrayButtonClicked()
     QString log_message = "Grayscale button pressed";
     logUpdate(log_message);
 
-    QString save_path = "C:/Users/ayola/OneDrive/Documents/Personal Projects/ImageProcessor/temp/tempImg.png";
+    if(CURRENT_IMG_PATH == ""){
+        QMessageBox::critical(this, "INVALID OPERATION!", "No image has been selected: Please Upload an image first :)");
+        return;
+    }
+
+    QString save_path = "tempImg.png";
+
     makeGrayscale(CURRENT_IMG_PATH, save_path);
 
-    CURRENT_IMG_PATH = save_path;
-    UpdateImage(CURRENT_IMG_PATH);
+    //CURRENT_IMG_PATH = save_path;
+    //UpdateImage(CURRENT_IMG_PATH);
 }
 
 void MainWindow::logUpdate(QString log_message)
