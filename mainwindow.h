@@ -18,6 +18,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void logUpdate(QString log_message);
+
+    void OpenFile();
+
 private slots:
     void on_uploadButton_clicked();
 
