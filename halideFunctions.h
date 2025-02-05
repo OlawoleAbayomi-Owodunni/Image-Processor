@@ -39,8 +39,6 @@ bool isImageGrayscale(const QString &t_inputPath){
 
 void makeGrayscale(const QString &t_inputPath, const QString &t_outputPath)
 {
-
-
     Halide::Buffer<uint8_t> input = Halide::Tools::load_image(t_inputPath.toStdString());
 
     Halide::Func grayscale;
@@ -79,5 +77,35 @@ void brighten(const QString &t_inputPath, const QString &t_outputPath)
     brighter(x, y, c) = value;
 
     Halide::Buffer<uint8_t> output = brighter.realize({input.width(), input.height(), input.channels()});
+    Halide::Tools::save_image(output, t_outputPath.toStdString());
+}
+
+void blur(const QString &t_inputPath, const QString &t_outputPath)
+{
+    // Load the input image using Halide Tools
+    Halide::Buffer<uint8_t> input = Halide::Tools::load_image(t_inputPath.toStdString());
+
+    // Define Halide variables
+    Halide::Func blur_func;
+    Halide::Var x, y, c;
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Apply boundary conditions to handle edges                                        //
+    Halide::Func clamped;                                                               //
+    clamped(x, y, c) = Halide::BoundaryConditions::repeat_edge(input)(x, y, c);         //
+                                                                                        //
+    // Define the blur kernel radius                                                    //
+    int radius = 1; // You can adjust this value to change the blur strength            //
+                                                                                        //
+    // Define the reduction domain over the kernel                                      // The solution was partly deduced using A.I.
+    Halide::RDom r(-radius, 2 * radius + 1, -radius, 2 * radius + 1);                   //
+                                                                                        //
+    // Compute the average of the neighboring pixels                                    //
+    Halide::Expr sum = Halide::sum(clamped(x + r.x, y + r.y, c));                       //
+    Halide::Expr count = (2 * radius + 1) * (2 * radius + 1);                           //
+    blur_func(x, y, c) = Halide::cast<uint8_t>(sum / count);                            //
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    Halide::Buffer<uint8_t> output = blur_func.realize({input.width(), input.height(), input.channels()});
     Halide::Tools::save_image(output, t_outputPath.toStdString());
 }

@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::onUploadButtonClicked);
 
     connect(ui->prcGrayButton, &QPushButton::clicked, this, &MainWindow::onPrcGrayButtonClicked);
+    connect(ui->prcBrghtButton, &QPushButton::clicked, this, &MainWindow::onPrcBrghtButtonClicked);
+    connect(ui->prcFlipButton, &QPushButton::clicked, this, &MainWindow::onPrcFlipButtonClicked);
 
     connect(ui->saveButton, &QPushButton::clicked, this, &MainWindow::onSaveButtonClicked);
 }
@@ -54,7 +56,7 @@ void MainWindow::onPrcGrayButtonClicked()
     UpdateImage(CURRENT_IMG_PATH);
 }
 
-void MainWindow::on_prcBrghtButton_clicked()
+void MainWindow::onPrcBrghtButtonClicked()
 {
     QString log_message = "Brighten button pressed";
     logUpdate(log_message);
@@ -74,6 +76,26 @@ void MainWindow::on_prcBrghtButton_clicked()
     }
 }
 
+void MainWindow::onPrcFlipButtonClicked()
+{
+    QString log_message = "Blur button pressed";
+    logUpdate(log_message);
+
+    if(CURRENT_IMG_PATH == ""){
+        QMessageBox::critical(this, "INVALID OPERATION!", "No image has been selected: Please Upload an image first :)");
+        return;
+    }
+
+    if(!isImageGrayscale(CURRENT_IMG_PATH)){
+        QString save_path = "./tempImg.png";
+
+        blur(CURRENT_IMG_PATH, save_path);
+
+        CURRENT_IMG_PATH = save_path;
+        UpdateImage(CURRENT_IMG_PATH);
+    }
+}
+
 void MainWindow::logUpdate(QString log_message)
 {
     static int LOG_COUNT = 1;
@@ -82,11 +104,13 @@ void MainWindow::logUpdate(QString log_message)
                          QString::number((LOG_COUNT)) + ": " +
                          log_message);
     LOG_COUNT++;
-    if(LOG_COUNT > 5) {
-        LOG_COUNT = 1;
-        ui->logInfo->clear();
-        ui->logInfo->setText("LOG INFORMATION:");
-    }
+    // if(LOG_COUNT > 7) {
+    //     LOG_COUNT = 1;
+    //     ui->logInfo->clear();
+    //     ui->logInfo->setText("LOG INFORMATION:");
+    // }
+
+    ui->textBrowser->setText(ui->logInfo->text());
 }
 
 void MainWindow::UpdateImage(QString t_filePath)
@@ -137,6 +161,9 @@ void MainWindow::onSaveButtonClicked()
         QMessageBox::warning(this, tr("Save Image"), tr("Failed to save the image."));
     }
 }
+
+
+
 
 
 

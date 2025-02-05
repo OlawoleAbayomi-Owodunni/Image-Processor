@@ -31,7 +31,9 @@ private slots:
 
     void onSaveButtonClicked();
 
-    void on_prcBrghtButton_clicked();
+    void onPrcBrghtButtonClicked();
+
+    void onPrcFlipButtonClicked();
 
 private:
     Ui::MainWindow *ui;

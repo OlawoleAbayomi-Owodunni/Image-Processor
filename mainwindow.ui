@@ -25,48 +25,60 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="displayWindow">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>40</y>
-      <width>521</width>
-      <height>341</height>
+      <x>260</x>
+      <y>140</y>
+      <width>701</width>
+      <height>401</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::WinPanel</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="uploadButton">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>390</y>
-      <width>141</width>
-      <height>51</height>
+      <x>30</x>
+      <y>220</y>
+      <width>201</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
-     <string>UPLOAD IMAGE</string>
+     <string>--&gt; UPLOAD IMAGE &lt;--</string>
     </property>
    </widget>
    <widget class="QPushButton" name="closeButton">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>20</y>
-      <width>71</width>
-      <height>31</height>
+      <x>1140</x>
+      <y>30</y>
+      <width>41</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>25</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>...</string>
+     <string>X</string>
     </property>
    </widget>
    <widget class="QPushButton" name="prcGrayButton">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>480</y>
+      <x>1010</x>
+      <y>230</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -78,21 +90,21 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>550</y>
-      <width>141</width>
-      <height>41</height>
+      <x>30</x>
+      <y>410</y>
+      <width>201</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>SAVE IMAGE</string>
+     <string>&lt;-- SAVE IMAGE --&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="prcBrghtButton">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>480</y>
+      <x>1010</x>
+      <y>280</y>
       <width>161</width>
       <height>31</height>
      </rect>
@@ -104,27 +116,115 @@
    <widget class="QPushButton" name="prcFlipButton">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>480</y>
+      <x>1010</x>
+      <y>330</y>
       <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Probably... flip the image?</string>
+     <string>Suprise Me!</string>
     </property>
    </widget>
    <widget class="QLabel" name="logInfo">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>500</y>
-      <width>181</width>
-      <height>81</height>
+      <x>990</x>
+      <y>470</y>
+      <width>211</width>
+      <height>131</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Panel</enum>
     </property>
     <property name="text">
      <string>LOG INFORMATION</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>160</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>28</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>FUNCTIONS</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>985</x>
+      <y>421</y>
+      <width>221</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Log Info goes here...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>40</y>
+      <width>601</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>OCR A</family>
+      <pointsize>36</pointsize>
+      <underline>false</underline>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>3</number>
+    </property>
+    <property name="text">
+     <string>IMAGE PROCESSING APP</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>590</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Made by Olawole Abayomi-Owodunni</string>
     </property>
    </widget>
   </widget>
