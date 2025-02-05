@@ -35,10 +35,13 @@ private slots:
 
     void onPrcFlipButtonClicked();
 
+    void onResetButtonClicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
 
     QString CURRENT_IMG_PATH = "";
+    QString OG_IMG_PATH = "";
 };
 #endif // MAINWINDOW_H

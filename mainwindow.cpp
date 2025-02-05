@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->displayWindow->setScene(scene);
 
     connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::onUploadButtonClicked);
+    connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::onResetButtonClicked);
 
     connect(ui->prcGrayButton, &QPushButton::clicked, this, &MainWindow::onPrcGrayButtonClicked);
     connect(ui->prcBrghtButton, &QPushButton::clicked, this, &MainWindow::onPrcBrghtButtonClicked);
@@ -78,7 +79,7 @@ void MainWindow::onPrcBrghtButtonClicked()
 
 void MainWindow::onPrcFlipButtonClicked()
 {
-    QString log_message = "Blur button pressed";
+    QString log_message = "Darken and Inverse button pressed";
     logUpdate(log_message);
 
     if(CURRENT_IMG_PATH == ""){
@@ -136,6 +137,8 @@ void MainWindow::OpenFile()
     UpdateImage(file_path);
 
     CURRENT_IMG_PATH = file_path;
+
+    OG_IMG_PATH = CURRENT_IMG_PATH;
 }
 
 void MainWindow::onSaveButtonClicked()
@@ -167,4 +170,19 @@ void MainWindow::onSaveButtonClicked()
 
 
 
+
+
+void MainWindow::onResetButtonClicked()
+{
+    QString log_message = "Reset button pressed";
+    logUpdate(log_message);
+
+    if(OG_IMG_PATH == ""){
+        QMessageBox::critical(this, "INVALID OPERATION!", "No image has been selected: Please Upload an image first :)");
+        return;
+    }
+
+    CURRENT_IMG_PATH = OG_IMG_PATH;
+    UpdateImage(CURRENT_IMG_PATH);
+}
 

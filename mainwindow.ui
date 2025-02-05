@@ -46,10 +46,16 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>220</y>
+      <y>320</y>
       <width>201</width>
       <height>91</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>--&gt; UPLOAD IMAGE &lt;--</string>
@@ -91,10 +97,16 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>410</y>
+      <y>440</y>
       <width>201</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>&lt;-- SAVE IMAGE --&gt;</string>
@@ -123,14 +135,14 @@
      </rect>
     </property>
     <property name="text">
-     <string>Suprise Me!</string>
+     <string>Mirror Verse :0</string>
     </property>
    </widget>
    <widget class="QLabel" name="logInfo">
     <property name="geometry">
      <rect>
       <x>990</x>
-      <y>470</y>
+      <y>430</y>
       <width>211</width>
       <height>131</height>
      </rect>
@@ -172,8 +184,8 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>985</x>
-      <y>421</y>
+      <x>980</x>
+      <y>410</y>
       <width>221</width>
       <height>181</height>
      </rect>
@@ -225,6 +237,27 @@
     </property>
     <property name="text">
      <string>Made by Olawole Abayomi-Owodunni</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="resetButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>170</y>
+      <width>201</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>21</pointsize>
+      <bold>true</bold>
+      <underline>false</underline>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>!!! RESET !!!</string>
     </property>
    </widget>
   </widget>
