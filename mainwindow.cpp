@@ -1,3 +1,5 @@
+#include "halideFunctions.h"
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -15,13 +17,35 @@ MainWindow::MainWindow(QWidget *parent)
     ui->displayWindow->setScene(scene);
 
     //Conncecting signals and slots:
-    connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked); //high chance this throws up errors
-                                                                                                    //no error but issue with calling twice
+    connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::onUploadButtonClicked); //high chance this throws up errors
+        //no error but issue with calling twice
+
+    connect(ui->prcGrayButton, &QPushButton::clicked, this, &MainWindow::onPrcGrayButtonClicked);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onUploadButtonClicked()
+{
+    QString log_message = "Upload button pressed";
+    logUpdate(log_message);
+
+    OpenFile();
+}
+
+void MainWindow::onPrcGrayButtonClicked()
+{
+    QString log_message = "Grayscale button pressed";
+    logUpdate(log_message);
+
+    QString save_path = "C:/Users/ayola/OneDrive/Documents/Personal Projects/ImageProcessor/temp/tempImg.png";
+    makeGrayscale(CURRENT_IMG_PATH, save_path);
+
+    CURRENT_IMG_PATH = save_path;
+    UpdateImage(CURRENT_IMG_PATH);
 }
 
 void MainWindow::logUpdate(QString log_message)
@@ -39,16 +63,12 @@ void MainWindow::logUpdate(QString log_message)
     }
 }
 
-void MainWindow::OpenFile()
+void MainWindow::UpdateImage(QString t_filePath)
 {
-    QString file_path = QFileDialog::getOpenFileName(this, "Upload Image", "", "Image Files (*.png *.jpg *.jpeg *.bmp)");
-
-    if(file_path.isEmpty()) return; //empty means no path was set
-
-    QPixmap pixmap(file_path);  //pixelmap of file
+    QPixmap pixmap(t_filePath);  //pixelmap of file used to display image (DOESN'T ACTUALLY CONTAIN IMAGE INFO)
     if(pixmap.isNull()){
         QMessageBox::critical(this, "ERROR LOADING FILE", "Incorrect file type: selected file does not generate Pixel Map.\n"
-                                                          "make sure to select Image Files (*.png *.jpg *.jpeg *.bmp)");
+                                                          "Make sure to select Image Files (*.png *.jpg *.jpeg *.bmp)");
         return;
     }
 
@@ -57,10 +77,13 @@ void MainWindow::OpenFile()
     ui->displayWindow->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
 
-void MainWindow::on_uploadButton_clicked()
+void MainWindow::OpenFile()
 {
-    QString log_message = "upload button pressed";
-    logUpdate(log_message);
+    QString file_path = QFileDialog::getOpenFileName(this, "Upload Image", "", "Image Files (*.png *.jpg *.jpeg *.bmp)");
 
-    OpenFile();
+    if(file_path.isEmpty()) return; //empty means no path was set
+
+    UpdateImage(file_path);
+
+    CURRENT_IMG_PATH = file_path;
 }

@@ -22,11 +22,17 @@ public:
 
     void OpenFile();
 
+    void UpdateImage(QString file_path);
+
 private slots:
-    void on_uploadButton_clicked();
+    void onUploadButtonClicked();
+
+    void onPrcGrayButtonClicked();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
+
+    QString CURRENT_IMG_PATH = "";
 };
 #endif // MAINWINDOW_H
